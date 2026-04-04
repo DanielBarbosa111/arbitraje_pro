@@ -266,18 +266,12 @@ export default function ConfigPage({ showToast }) {
     <div className="section" style={{ position: 'relative' }}>
 
       <h2>⚙️ Configuración</h2>
-      <div className="section-theme-btn">
-        <button
-          className="btn-auth btn-login"
-          style={{ position: 'static', fontSize: '0.8em', padding: '6px 14px' }}
-          onClick={toggleTheme}
-        >
-          {theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro'}
-        </button>
-      </div>
-
       {/* Crear torneo */}
-      <TournamentForm onSubmit={handleCreateTournament} />
+      <TournamentForm
+        onSubmit={handleCreateTournament}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
 
       {/* Lista de torneos */}
       <div className="section-label">Torneos Existentes</div>

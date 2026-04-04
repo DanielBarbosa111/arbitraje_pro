@@ -4,7 +4,7 @@
 
 import { useState } from 'react';
 
-export default function TournamentForm({ onSubmit }) {
+export default function TournamentForm({ onSubmit, theme, onToggleTheme }) {
   const [name, setName] = useState('');
 
   function handleSubmit(e) {
@@ -15,7 +15,18 @@ export default function TournamentForm({ onSubmit }) {
   }
 
   return (
-    <div className="form-box">
+    <div className="form-box" style={{ position: 'relative' }}>
+      {/* Botón tema — esquina superior izquierda del contenedor */}
+      {onToggleTheme && (
+        <button
+          type="button"
+          className="theme-corner-btn"
+          onClick={onToggleTheme}
+          title="Cambiar tema"
+        >
+          {theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro'}
+        </button>
+      )}
       <h3>➕ Crear Nuevo Torneo</h3>
       <form onSubmit={handleSubmit} className="form-group">
         <input

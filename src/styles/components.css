@@ -1711,3 +1711,83 @@
 [data-theme="light"] .tc-particle {
   background: var(--accent);
 }
+/* ── Resumen modal overlay (bracket móvil) ─────────────── */
+.summary-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+  animation: fadeInUp 0.2s ease;
+}
+.summary-modal-inner {
+  background: var(--bg-card-solid);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 30px var(--accent-glow);
+  padding: 24px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ── Badge clasificado tipo etiqueta esquina ─────────────── */
+.clasificado-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(0,255,136,0.25) !important;
+}
+.clasificado-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: scanline 3s linear infinite;
+}
+.clasificado-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, var(--accent), #00cc6a);
+  color: #000;
+  font-size: 0.68em;
+  font-weight: 900;
+  font-family: var(--font-title);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px 6px 16px;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: var(--radius-lg);
+  box-shadow: -3px 3px 12px rgba(0,255,136,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* ── Botón tema esquina superior izquierda del form-box ─── */
+.theme-corner-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: var(--accent-hover);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-pill);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+.theme-corner-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
