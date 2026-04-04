@@ -1,0 +1,77 @@
+/* =====================================================
+   Arbitraje Pro — Tokens (Variables CSS)
+   Tema oscuro (principal) + Tema claro rojo
+   ===================================================== */
+
+:root {
+  /* ── Tema Oscuro (por defecto) ── */
+  --bg-primary:    #0a0e27;
+  --bg-secondary:  rgba(26, 31, 58, 0.95);
+  --bg-card:       linear-gradient(135deg, rgba(26, 31, 58, 0.8) 0%, rgba(15, 20, 40, 0.8) 100%);
+  --bg-card-solid: rgba(15, 20, 40, 0.8);
+  --bg-input:      rgba(10, 14, 39, 0.6);
+  --bg-grid:
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,255,136,0.03) 2px, rgba(0,255,136,0.03) 4px),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,136,0.03) 2px, rgba(0,255,136,0.03) 4px),
+    linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+  --grid-dot:      rgba(0, 255, 136, 0.1);
+
+  --accent:        #00ff88;
+  --accent-dark:   #00cc6a;
+  --accent-glow:   rgba(0, 255, 136, 0.3);
+  --accent-border: rgba(0, 255, 136, 0.3);
+  --accent-hover:  rgba(0, 255, 136, 0.1);
+
+  --text-primary:   #ffffff;
+  --text-secondary: #8b95c9;
+  --text-on-accent: #0a0e27;
+
+  --danger:    #ff4757;
+  --warning:   #f39c12;
+  --success:   #00ff88;
+  --info:      #3498db;
+
+  --font-main:  'Rajdhani', sans-serif;
+  --font-title: 'Orbitron', sans-serif;
+
+  --radius:      12px;
+  --radius-lg:   20px;
+  --radius-pill: 50px;
+
+  --shadow:      0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px var(--accent-glow), 0 8px 20px rgba(0,0,0,0.4);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Tema Claro Rojo ── */
+[data-theme="light"] {
+  --bg-primary:    #f0f2f5;
+  --bg-secondary:  rgba(255, 255, 255, 0.95);
+  --bg-card:       linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 245, 250, 0.9) 100%);
+  --bg-card-solid: rgba(255, 255, 255, 0.9);
+  --bg-input:      rgba(240, 240, 245, 0.8);
+  --bg-grid:
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(200,16,46,0.03) 2px, rgba(200,16,46,0.03) 4px),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(200,16,46,0.03) 2px, rgba(200,16,46,0.03) 4px),
+    linear-gradient(135deg, #f0f2f5 0%, #e8eaf0 50%, #f0f2f5 100%);
+  --grid-dot:      rgba(200, 16, 46, 0.06);
+
+  --accent:        #C8102E;
+  --accent-dark:   #a00d24;
+  --accent-glow:   rgba(200, 16, 46, 0.2);
+  --accent-border: rgba(200, 16, 46, 0.25);
+  --accent-hover:  rgba(200, 16, 46, 0.08);
+
+  --text-primary:   #1a1a2e;
+  --text-secondary: #666680;
+  --text-on-accent: #ffffff;
+
+  --danger:    #e74c3c;
+  --warning:   #f39c12;
+  --success:   #27ae60;
+  --info:      #2980b9;
+
+  --shadow:      0 10px 40px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 4px 20px rgba(200, 16, 46, 0.15), 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
