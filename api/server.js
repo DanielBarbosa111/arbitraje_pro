@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors({
   origin: [
-    'https://capable-torrone-720a33.netlify.app',
+    'https://arbitraje-ctc.netlify.app',
     'http://localhost:5173',
     'http://localhost:4173',
   ],
