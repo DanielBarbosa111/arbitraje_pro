@@ -37,8 +37,22 @@ export default function ClasificacionPage({ showToast, isAdmin }) {
   const refClasificacion = useRef(null);
 
   function scrollTo(ref) {
-    setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   }
+  // Scroll automático cuando cambia activeTournament
+  useEffect(() => {
+    if (activeTournament) scrollTo(refSubtorneos);
+  }, [activeTournament]);
+
+  // Scroll automático cuando cambia activeSubtorneo
+  useEffect(() => {
+    if (activeSubtorneo) scrollTo(refClasificacion);
+  }, [activeSubtorneo]);
+
 
   async function loadTournaments() {
     try {
@@ -72,13 +86,11 @@ export default function ClasificacionPage({ showToast, isAdmin }) {
   function handleSelectTournament(tid) {
     setActiveTournament(tid);
     loadSubtorneos(tid);
-    scrollTo(refSubtorneos);
   }
 
   function handleSelectSubtorneo(sid) {
     setActiveSubtorneo(sid);
     loadClasificacion(sid);
-    scrollTo(refClasificacion);
   }
 
   async function handleGenerateFase2() {
@@ -248,13 +260,11 @@ export default function ClasificacionPage({ showToast, isAdmin }) {
           {clasificacion.clasificados.length > 0 ? (
             <div className="grid-2">
               {clasificacion.clasificados.map((c, i) => (
-                <div key={`${c.team_id}-${c.jornada_id}`} className="card">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h3>
-                      {i < 3 ? ['🥇', '🥈', '🥉'][i] : `#${i + 1}`} {c.team_name}
-                    </h3>
-                    <span className="badge badge-success">Clasificado</span>
-                  </div>
+                <div key={`${c.team_id}-${c.jornada_id}`} className="card clasificado-card">
+                  <span className="clasificado-badge">Clasificado</span>
+                  <h3 style={{ paddingRight: '80px' }}>
+                    {i < 3 ? ['🥇', '🥈', '🥉'][i] : `#${i + 1}`} {c.team_name}
+                  </h3>
                   <p style={{ marginTop: '8px' }}>
                     📅 {c.jornada_name} · Posición #{c.position}
                   </p>

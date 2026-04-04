@@ -311,8 +311,22 @@ export default function StatsPage({ showToast }) {
   const refStats      = useRef(null);
 
   function scrollTo(ref) {
-    setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   }
+  // Scroll automático cuando cambia activeTournament
+  useEffect(() => {
+    if (activeTournament) scrollTo(refSubtorneos);
+  }, [activeTournament]);
+
+  // Scroll automático cuando cambia activeSubtorneo
+  useEffect(() => {
+    if (activeSubtorneo) scrollTo(refStats);
+  }, [activeSubtorneo]);
+
 
   async function loadTournaments() {
     try { setTournaments((await api('/tournaments/list')).filter(t => t.visible !== 0)); }
@@ -338,13 +352,11 @@ export default function StatsPage({ showToast }) {
     setStats(null);
     setActiveSubtorneo(null);
     loadSubtorneos(tid);
-    scrollTo(refSubtorneos);
   }
 
   function handleSelectSubtorneo(sid) {
     setActiveSubtorneo(sid);
     loadStatsSubtorneo(sid);
-    scrollTo(refStats);
   }
 
   useEffect(() => { loadTournaments(); }, []);

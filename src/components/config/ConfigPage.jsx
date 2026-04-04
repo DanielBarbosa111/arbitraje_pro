@@ -2,7 +2,7 @@
 // Arbitraje Pro — Página de Configuración
 // =====================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { api } from '../../api/client';
 import { useTheme } from '../../context/ThemeContext';
 import TournamentForm from './TournamentForm';
@@ -105,6 +105,35 @@ export default function ConfigPage({ showToast }) {
       showToast(err.message, 'danger');
     }
   }
+
+  // ── Refs para scroll automático ──
+  const refTorneos    = useRef(null);
+  const refSubtorneos = useRef(null);
+  const refJornadas   = useRef(null);
+  const refEquipos    = useRef(null);
+
+  function scrollTo(ref) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+  // Scroll automático cuando cambia activeTournament
+  useEffect(() => {
+    if (activeTournament) scrollTo(refSubtorneos);
+  }, [activeTournament]);
+
+  // Scroll automático cuando cambia activeSubtorneo
+  useEffect(() => {
+    if (activeSubtorneo) scrollTo(refJornadas);
+  }, [activeSubtorneo]);
+
+  // Scroll automático cuando cambia activeJornada
+  useEffect(() => {
+    if (activeJornada) scrollTo(refEquipos);
+  }, [activeJornada]);
+
 
   function handleSelectTournament(tid) {
     setActiveTournament(tid);
@@ -236,16 +265,16 @@ export default function ConfigPage({ showToast }) {
   return (
     <div className="section" style={{ position: 'relative' }}>
 
-      {/* ── Botón de tema — esquina superior derecha del contenedor ── */}
-      <button
-        className="btn-auth btn-login"
-        style={{ position: 'absolute', top: '20px', right: '20px' }}
-        onClick={toggleTheme}
-      >
-        {theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro'}
-      </button>
-
       <h2>⚙️ Configuración</h2>
+      <div className="section-theme-btn">
+        <button
+          className="btn-auth btn-login"
+          style={{ position: 'static', fontSize: '0.8em', padding: '6px 14px' }}
+          onClick={toggleTheme}
+        >
+          {theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro'}
+        </button>
+      </div>
 
       {/* Crear torneo */}
       <TournamentForm onSubmit={handleCreateTournament} />
@@ -339,7 +368,7 @@ export default function ConfigPage({ showToast }) {
       {/* Subtorneos */}
       {activeTournament && (
         <>
-          <div className="section-divider"></div>
+          <div ref={refSubtorneos} className="section-divider"></div>
           <div className="section-label">Subtorneos — {currentTournament?.name}</div>
 
           <div className="sports-selector">
@@ -385,7 +414,7 @@ export default function ConfigPage({ showToast }) {
       {/* Jornadas */}
       {activeSubtorneo && (
         <>
-          <div className="section-divider"></div>
+          <div ref={refJornadas} className="section-divider"></div>
           <div className="section-label">Jornadas — {currentSubtorneo?.name}</div>
 
           <div className="grid-3">
@@ -407,7 +436,7 @@ export default function ConfigPage({ showToast }) {
       {/* Equipos */}
       {activeJornada && (
         <>
-          <div className="section-divider"></div>
+          <div ref={refEquipos} className="section-divider"></div>
           <div className="section-label">
             {currentSubtorneo?.type === 'tenis' ? 'Jugadores' : 'Equipos'} — {currentJornada?.name}
           </div>

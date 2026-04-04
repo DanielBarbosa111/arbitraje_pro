@@ -17,8 +17,22 @@ export default function Fase2Page({ showToast, isAdmin }) {
   const refBracket    = useRef(null);
 
   function scrollTo(ref) {
-    setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   }
+  // Scroll automático cuando cambia activeTournament
+  useEffect(() => {
+    if (activeTournament) scrollTo(refSubtorneos);
+  }, [activeTournament]);
+
+  // Scroll automático cuando cambia activeSubtorneo
+  useEffect(() => {
+    if (activeSubtorneo) scrollTo(refBracket);
+  }, [activeSubtorneo]);
+
 
   async function loadTournaments() {
     try {
@@ -52,13 +66,11 @@ export default function Fase2Page({ showToast, isAdmin }) {
   function handleSelectTournament(tid) {
     setActiveTournament(tid);
     loadSubtorneos(tid);
-    scrollTo(refSubtorneos);
   }
 
   function handleSelectSubtorneo(sid) {
     setActiveSubtorneo(sid);
     loadMatches(sid);
-    scrollTo(refBracket);
   }
 
   async function handleSaveResult(matchId, score1, score2, winnerTeamId, goals, cards) {

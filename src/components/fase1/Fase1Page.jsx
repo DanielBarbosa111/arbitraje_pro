@@ -44,8 +44,27 @@ export default function Fase1Page({ showToast, isAdmin }) {
   const refPartidos   = useRef(null);
 
   function scrollTo(ref) {
-    setTimeout(() => ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   }
+  // Scroll automático cuando cambia activeTournament
+  useEffect(() => {
+    if (activeTournament) scrollTo(refSubtorneos);
+  }, [activeTournament]);
+
+  // Scroll automático cuando cambia activeSubtorneo
+  useEffect(() => {
+    if (activeSubtorneo) scrollTo(refJornadas);
+  }, [activeSubtorneo]);
+
+  // Scroll automático cuando cambia activeJornada
+  useEffect(() => {
+    if (activeJornada) scrollTo(refPartidos);
+  }, [activeJornada]);
+
 
   async function loadTournaments() {
     try {
@@ -103,20 +122,17 @@ export default function Fase1Page({ showToast, isAdmin }) {
   function handleSelectTournament(tid) {
     setActiveTournament(tid);
     loadSubtorneos(tid);
-    scrollTo(refSubtorneos);
   }
 
   function handleSelectSubtorneo(sid) {
     setActiveSubtorneo(sid);
     loadJornadas(sid);
-    scrollTo(refJornadas);
   }
 
   function handleSelectJornada(jid) {
     setActiveJornada(jid);
     loadMatches(jid);
     loadStandings(jid);
-    scrollTo(refPartidos);
   }
 
   async function handleSaveResult(matchId, score1, score2, goals, cards) {
