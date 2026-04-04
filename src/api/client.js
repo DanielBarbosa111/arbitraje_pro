@@ -3,7 +3,7 @@
 // Centraliza todas las llamadas al backend Express
 // =====================================================
 
-const BASE = '/api';
+const BASE = 'https://arbitrajepro-production.up.railway.app';
 
 export async function api(endpoint, body = null, method = null) {
   const resolvedMethod = method || (body ? 'POST' : 'GET');
