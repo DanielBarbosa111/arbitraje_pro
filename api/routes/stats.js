@@ -164,6 +164,15 @@ router.get('/subtorneo', async (req, res) => {
       console.warn('fase1_cards (subtorneo equipos):', e.message);
     }
 
+    // Equipos y jugadores del subtorneo
+    const [[countsRow]] = await db.query(`
+      SELECT COUNT(DISTINCT t.id) AS total_teams,
+             COUNT(DISTINCT p.id) AS total_players
+      FROM teams t
+      INNER JOIN jornadas j ON j.id = t.jornada_id AND j.subtorneo_id = ?
+      LEFT JOIN players p ON p.team_id = t.id
+    `, [sid]);
+
     const totalGoals   = f1[0].total_goals + f2[0].total_goals;
     const totalPlayed  = f1[0].matches_played + f2[0].matches_played;
     const totalMatches = f1[0].total_matches + f2[0].total_matches;
@@ -174,6 +183,8 @@ router.get('/subtorneo', async (req, res) => {
       matches_played:       totalPlayed,
       total_matches:        totalMatches,
       avg_goals:            avgGoals,
+      total_teams:          countsRow.total_teams,
+      total_players:        countsRow.total_players,
       top_scorers:          topScorers,
       top_teams:            topTeams,
       best_defenses:        bestDefenses,
@@ -362,6 +373,15 @@ router.get('/general', async (req, res) => {
       topCardsTeams = rows;
     } catch (_) {}
 
+    // Equipos y jugadores del subtorneo
+    const [[countsRow]] = await db.query(`
+      SELECT COUNT(DISTINCT t.id) AS total_teams,
+             COUNT(DISTINCT p.id) AS total_players
+      FROM teams t
+      INNER JOIN jornadas j ON j.id = t.jornada_id AND j.subtorneo_id = ?
+      LEFT JOIN players p ON p.team_id = t.id
+    `, [sid]);
+
     const totalGoals   = f1[0].total_goals + f2[0].total_goals;
     const totalPlayed  = f1[0].matches_played + f2[0].matches_played;
     const totalMatches = f1[0].total_matches + f2[0].total_matches;
@@ -372,6 +392,8 @@ router.get('/general', async (req, res) => {
       matches_played:       totalPlayed,
       total_matches:        totalMatches,
       avg_goals:            avgGoals,
+      total_teams:          countsRow.total_teams,
+      total_players:        countsRow.total_players,
       top_scorers:          topScorers,
       top_teams:            topTeams,
       best_defenses:        bestDefenses,

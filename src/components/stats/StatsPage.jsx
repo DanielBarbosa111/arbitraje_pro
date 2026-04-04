@@ -444,9 +444,10 @@ export default function StatsPage({ showToast }) {
 
           {/* KPIs globales */}
           <div className="stats-kpi-grid">
-            <KpiCard icon="⚽" value={stats.total_goals}   label="Goles / Sets" />
-            <KpiCard icon="🎮" value={stats.matches_played} label="Partidos jugados" />
-            <KpiCard icon="📈" value={stats.avg_goals}      label="Promedio / partido" />
+            <KpiCard icon="🏆" value={tournaments.length}     label="Torneos activos" />
+            <KpiCard icon="👥" value={stats.total_teams ?? 0}  label="Equipos" />
+            <KpiCard icon="🧍" value={stats.total_players ?? 0} label="Jugadores" />
+            <KpiCard icon="🎮" value={stats.matches_played}    label="Partidos jugados" />
             <KpiCard icon="⏳" value={stats.total_matches - stats.matches_played} label="Restantes" />
           </div>
 
